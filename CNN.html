@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    
+    <title>CNN</title>
+</head>
+<body>
+    <h3>Convolutional Network</h3>
+    <p>This note is still construction. All the stuffs below are still a draft only. The reference I follow is : <a href="https://cs182sp21.github.io/static/slides/lec-6.pdf">CNN lecture notes from UC Berkeley</a></p>
+
+    <p>We assume you know what is a nerual netowrk, if not please read my another blog post related to ANN</p>
+
+    <h4>How to handle Image with neural netowrk</h4>
+    <p>
+        Imagine you are processing an image. Each pixel would have three values (red , green , blue). 
+        This means you have to handle \(128 \times 128 \times 3  = 49152 \) real number input when handling 128 x 128 pixel images!  
+        Now let's consider you pass though a single layer that transform to 64 features. \[ \vec{x}_{1\times 41952}^T . \bf{M}_{1 \times 64} \]
+        which takes approximate 3,000,000 unit of computation !
+    </p>
+
+    <p>This works but we hope to find a better way to handle this problem. Noticing that many image features are coming from its neighbour. For example you will consider the feature is coming from the ear instead of nose if it is just one pixel next to the ear. As a our idea if a particular ("area") patch of image contains a feature instead of particular pixel</p>
+    <p>Next we have to apply filter to these mini batch. let's say each batch is 3x3x3. Then each batch can apply to few filter as a feature. As a result it will form a 128 x 128 x 4 layer. This doesn't solve our problem of having a huge image</p>
+
+    <p>We solve the problem by applying a max pool. What this does is just take max of each 2x2 region. </p>
+    <p>After max pooling we will get the layer of 64x 64 x 4 . This is called downsampling. Note that this procedure continues and the filter may form different deepth and then do some different kinds of pooling but the idea is still lower the size of the input. </p>
+
+    <p>So what max pool / other pool is just extra the most important information from the image (?) </p>
+    <p>Procedure</p>
+    <ul>
+        <li>
+            Convolutional Layer &rarr; Each layer is local. 
+        </li>
+        <li>
+            Pooling 
+        </li>
+        <li>
+            Finish it up
+        </li>
+    </ul>
+    <p>Example :ALEX NET</p>
+    <p>The usage of refomulate &rarr; convert to matrix</p>
+    <p> Exercise: stride is important to undertand zero-pad also </p>
+    <p>Quick Notes: here it is as is assume that it has apply padding already.</p>
+
+</body>
+</html>
