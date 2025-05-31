@@ -3,18 +3,678 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <title>Jason Blog</title>
+    <title>Hon Kit Long - Computer Science Student</title>
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #333333;
+            --accent-color: #666666;
+            --text-dark: #000000;
+            --text-light: #666666;
+            --background: #ffffff;
+            --section-bg: #f8f8f8;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--background);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--primary-color);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-bg {
+            background: var(--section-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: white;
+            margin: 0 auto;
+        }
+
+        /* Education Section */
+        .education-item {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .education-item h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item .year {
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* Experience Section */
+        .experience-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .experience-item {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .experience-item h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .role {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .year {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-item li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .experience-item li::before {
+            content: "▸";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .project-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-body {
+            padding: 1.5rem;
+        }
+
+        .project-body ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .project-body li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .project-body li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .skill-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 10px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+        }
+
+        .contact-links a:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+                font-size: 5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <div class="navbar bg-base-100 shadow-sm">
-            <div class="flex-1">
-                <a class="btn btn-ghost text-xl">Jason Blog</a>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">Hon Kit Long</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
             </div>
-
         </div>
-    </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Hon Kit Long</h1>
+            <p>Computer Science Student | Software Engineer | AI Research Assistant</p>
+            <div class="social-links">
+                <a href="https://github.com/JasonHonKL" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/jason-h-2998b7236/" target="_blank">LinkedIn</a>
+                <a href="mailto:j2004nol@gmail.com">Email</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="profile-image">
+                    HKL
+                </div>
+                <div class="about-text">
+                    <p>I'm a passionate Computer Science student at The University of Hong Kong, with a strong focus on artificial intelligence, software engineering, and research. My academic journey combines theoretical knowledge with practical application through various professional experiences and research projects.</p>
+                    
+                    <p>With professional experience as a Software Engineer at FLYTECH and an Internal Audit Intern at Hospital Authority, I've developed expertise in full-stack development, OCR technology integration, machine learning, and data processing optimization. I'm particularly interested in AI agents, large language models, and their practical applications.</p>
+                    
+                    <p>Currently serving as a Student Research Assistant at HKU, I'm actively contributing to cutting-edge research while working on innovative open-source projects. I'm passionate about leveraging technology to solve complex problems and contribute to the advancement of computer science.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section-bg">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-item">
+                <h3>The University of Hong Kong</h3>
+                <div class="year">2022 - 2026</div>
+                <p><strong>Major:</strong> Computer Science & Economics</p>
+                <p><strong>Minor:</strong> Mathematics</p>
+                <p><strong>Current Role:</strong> Student Research Assistant (2025 - Present)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="experience-grid">
+                <div class="experience-item">
+                    <h3>The University of Hong Kong</h3>
+                    <div class="role">Student Research Assistant</div>
+                    <div class="year">2025 - Present</div>
+                    <ul>
+                        <li>Research in SWE Agent , VLM and Agentic workflow</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <h3>FLYTECH (Hong Kong)</h3>
+                    <div class="role">Software Engineer</div>
+                    <div class="year">2022, 2023-2024</div>
+                    <ul>
+                        <li>Developed frontend of the Kiosk Management System</li>
+                        <li>Built full stack desktop application using C# and JavaScript</li>
+                        <li>Integrated Paddle OCR with Kiosk ID card scanner using Python</li>
+                        <li>Conducted R&D to integrate telecom technology with Kiosk systems</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <h3>Hospital Authority</h3>
+                    <div class="role">Group Internal Audit Intern</div>
+                    <div class="year">2024 (Sep)</div>
+                    <ul>
+                        <li>Developed full-stack application integrating OCR technology, Python backend, and React frontend</li>
+                        <li>Revamped data extraction and cleaning tools using Python, achieving 40% reduction in processing time</li>
+                        <li>Engineered advanced document chat system with NLP, enabling information retrieval with 78% accuracy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section-bg">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Dac-LLM</h3>
+                        <div>2024 - Present</div>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Developed innovative algorithm to enhance LLM accuracy for mathematical problem-solving</li>
+                            <li>Implemented "divide and conquer" approach using Python</li>
+                            <li>Achieved state-of-the-art performance: 441/500 vs traditional methods</li>
+                            <li>Significantly reduced calculation errors in computational challenges</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Ollama Contributions</h3>
+                        <div>2025 - Present</div>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Contributed to API design and enhancement in Ollama open-source project</li>
+                            <li>Used Go programming language for development</li>
+                            <li>Troubleshooted and resolved issues related to terminal usage</li>
+                            <li>Active contributor to the open-source community</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Spy Search</h3>
+                        <div>2025 - Present</div>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Advanced search and intelligence gathering system</li>
+                            <li>Implemented sophisticated algorithms for data analysis</li>
+                            <li>Built with modern web technologies and APIs</li>
+                            <li>Open source project available on GitHub</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <h3>Programming Languages</h3>
+                    <p>Python, Java, C++, JavaScript, Go</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Web Development</h3>
+                    <p>React, Flask, Node.js, HTML/CSS, Bootstrap</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Database & Storage</h3>
+                    <p>MySQL, Database Management Systems</p>
+                </div>
+                <div class="skill-item">
+                    <h3>AI & Machine Learning</h3>
+                    <p>Machine Learning, NLP, OCR Technology, Large Language Models</p>
+                </div>
+                <div class="skill-item">
+                    <h3>AI Agents</h3>
+                    <p>AI Agent Development, Autonomous Systems, Intelligent Automation</p>
+                </div>
+                <div class="skill-item">
+                    <h3>System Design</h3>
+                    <p>Software Architecture, Microservices, System Design, Project Management</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-bg">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p>I'm always interested in discussing new opportunities, research collaborations, or innovative projects. Feel free to reach out!</p>
+                <div class="contact-links">
+                    <a href="mailto:j2004nol@gmail.com">Email</a>
+                    <a href="tel:95213043">Phone</a>
+                    <a href="https://github.com/JasonHonKL" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/jason-h-2998b7236/" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Hon Kit Long. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add active class to navigation based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add fade-in animation for elements when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        const elementsToAnimate = document.querySelectorAll('.project-card, .experience-item, .education-item, .skill-item');
+        elementsToAnimate.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
-<script src="./script.js"></script>
 </html>
